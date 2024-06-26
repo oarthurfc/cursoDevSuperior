@@ -2,7 +2,7 @@ package com.oarthurfc.D2_ModeloDominioORM.entities;
 
 import jakarta.persistence.*;
 
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table (name = "tb_participante")
@@ -12,7 +12,11 @@ public class Participante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @Column(unique = true)
     private String email;
+
+    @ManyToMany(mappedBy = "participantes")
+    private Set<Atividade> atividades = new HashSet<>();
 
     public Participante() {
     }
