@@ -17,13 +17,8 @@ public class ProductService {
 
     @Transactional
     public ProductDTO insert(ProductDTO dto){
-
         Product product = new Product();
-        product.setName(dto.getName());
-        product.setDescription(dto.getDescription());
-        product.setPrice(dto.getPrice());
-        product.setImgURL(dto.getImgUrl());
-
+        copyDtoToEntity(dto, product);
         product = repository.save(product);
         return new ProductDTO(product);
     }
@@ -39,4 +34,25 @@ public class ProductService {
         Page<Product> products = repository.findAll(pageable);
         return products.map(product -> new ProductDTO(product));
     }
+
+    @Transactional
+    public ProductDTO update(Long id, ProductDTO dto){
+        Product product = repository.getReferenceById(id);
+        copyDtoToEntity(dto, product);
+        product = repository.save(product);
+        return new ProductDTO(product);
+    }
+
+    @Transactional
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
+        
+    private void copyDtoToEntity(ProductDTO dto, Product product) {
+        product.setName(dto.getName());
+        product.setDescription(dto.getDescription());
+        product.setPrice(dto.getPrice());
+        product.setImgURL(dto.getImgUrl());
+    }
+
 }
