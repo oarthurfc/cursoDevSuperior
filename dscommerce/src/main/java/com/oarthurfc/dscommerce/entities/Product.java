@@ -2,7 +2,6 @@ package com.oarthurfc.dscommerce.entities;
 
 import jakarta.persistence.*;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
