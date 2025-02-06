@@ -7,6 +7,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.oarthurfc.dscommerce.dto.ProductDTO;
 import com.oarthurfc.dscommerce.services.ProductService;
 
+import jakarta.validation.Valid;
+
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ public class ProductController {
     private ProductService service;
 
     @PostMapping
-    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO productDTO) {
         productDTO = service.insert(productDTO);
         
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
@@ -51,7 +53,7 @@ public class ProductController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO) {
         productDTO = service.update(id, productDTO);
         return ResponseEntity.ok(productDTO); 
     }
